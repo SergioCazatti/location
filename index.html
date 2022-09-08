@@ -8,7 +8,7 @@
   <title>Document</title>
 </head>
 <body>
-  <p id="demo">Pulsa para ver tu localizaci&oacute;n (v1.3)</p>
+  <p id="demo">Pulsa para ver tu localizaci&oacute;n (v1.4)</p>
   <button id="start">Pulsa aqu&iacute;</button>
   <button id="stop">Terminar</button>
   <button id="descargar">Descargar TXT</button>
@@ -68,13 +68,13 @@ function showPosition(position) {
 
   let altitud;
   if (position.coords.altitude){
-    altitud = posicion.coords.altitude;
+    altitud = parseFloat(posicion.coords.altitude);
   }
   else{
     altitud = 0;
   }
 
-  listaPosiciones.push(position.coords.longitude +","+ position.coords.latitude +","+ altitud +" ");
+  listaPosiciones.push(parseFloat(position.coords.longitude) +","+ parseFloat(position.coords.latitude) +","+ altitud +" ");
 }
 
 
