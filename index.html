@@ -105,8 +105,15 @@ function stopLocation() {
 
 
 const guardarArchivoDeTexto = (contenido, nombre) => {
+        console.log("Guerdar archivo de texto");
+        console.log(contenido);
+
+
         const a = document.createElement("a");
         const archivo = new Blob([contenido], { type: 'text/plain' });
+
+        console.log(archivo);
+
         const url = URL.createObjectURL(archivo);
         a.href = url;
         a.download = nombre;
@@ -123,7 +130,7 @@ document.getElementById("stop").addEventListener("click", stopLocation);
     const $botonDescargar = document.querySelector("#descargar");
     $botonDescargar.onclick = () => {
       // let encabezadoKml = '<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">\n<Document>\n	<name>5k Ultra Odissea 2022.kml</name>\n	<Style id="inline">\n		<LineStyle>\n			<color>ff00ff55</color>\n			<width>2</width>\n		</LineStyle>\n		<PolyStyle>\n			<fill>0</fill>\n		</PolyStyle>\n	</Style>\n	<Style id="inline0">\n		<LineStyle>\n			<color>ff00ff55</color>\n			<width>2</width>\n		</LineStyle>\n		<PolyStyle>\n			<fill>0</fill>\n		</PolyStyle>\n	</Style>\n	<StyleMap id="inline1">\n		<Pair>\n			<key>normal</key>\n			<styleUrl>#inline0</styleUrl>\n		</Pair>\n		<Pair>\n			<key>highlight</key>\n			<styleUrl>#inline</styleUrl>\n		</Pair>\n	</StyleMap>\n	<Placemark>\n		<name>5k Ultra Odissea 2022</name>\n		<styleUrl>#inline1</styleUrl>\n		<LineString>\n			<tessellate>1</tessellate>\n			<coordinates>\n';  
-      let encabezadoKml = '<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">\n<Document>\n	<name>5k Ultra Odissea 2022.kml</name>\n	<Style id="inline">\n		<LineStyle>\n			<color>ff00ff55</color>\n			<width>2</width>\n		</LineStyle>\n		<PolyStyle>\n			<fill>0</fill>\n		</PolyStyle>\n	</Style>\n	<Style id="inline0">\n		<LineStyle>\n			<color>ff00ff55</color>\n			<width>2</width>\n		</LineStyle>\n		<PolyStyle>\n			<fill>0</fill>\n		</PolyStyle>\n	</Style>\n	<StyleMap id="inline1">\n		<Pair>\n			<key>normal</key>\n			<styleUrl>#inline0</styleUrl>\n		</Pair>\n		<Pair>\n			<key>highlight</key>\n			<styleUrl>#inline</styleUrl>\n		</Pair>\n	</StyleMap>\n	<Placemark>\n		<name>5k Ultra Odissea 2022</name>\n		<styleUrl>#inline1</styleUrl>\n		<LineString>\n			<tessellate>1</tessellate>\n			<coordinates>\n' + listaPosiciones.join("") + '</coordinates>\n</LineString>\n	</Placemark>\n</Document>\n</kml>';
+      let encabezadoKml = '<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">\n<Document>\n	<name>5k Ultra Odissea 2022.kml</name>\n	<Style id="inline">\n		<LineStyle>\n			<color>ff00ff55</color>\n			<width>2</width>\n		</LineStyle>\n		<PolyStyle>\n			<fill>0</fill>\n		</PolyStyle>\n	</Style>\n	<Style id="inline0">\n		<LineStyle>\n			<color>ff00ff55</color>\n			<width>2</width>\n		</LineStyle>\n		<PolyStyle>\n			<fill>0</fill>\n		</PolyStyle>\n	</Style>\n	<StyleMap id="inline1">\n		<Pair>\n			<key>normal</key>\n			<styleUrl>#inline0</styleUrl>\n		</Pair>\n		<Pair>\n			<key>highlight</key>\n			<styleUrl>#inline</styleUrl>\n		</Pair>\n	</StyleMap>\n	<Placemark>\n		<name>5k Ultra Odissea 2022</name>\n		<styleUrl>#inline1</styleUrl>\n		<LineString>\n			<tessellate>1</tessellate>\n			<coordinates>\n<' + listaPosiciones.join("") + '></coordinates>\n</LineString>\n	</Placemark>\n</Document>\n</kml>';
 //        let pieKml = '</coordinates>\n</LineString>\n	</Placemark>\n</Document>\n</kml>';
         let contenido = "";
 
