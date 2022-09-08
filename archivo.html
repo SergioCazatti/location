@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descargar txt con JS</title>
+</head>
+
+<body>
+    <button id="descargar">Descargar TXT</button>
+</body>
+<script>
+    const guardarArchivoDeTexto = (contenido, nombre) => {
+        const a = document.createElement("a");
+        const archivo = new Blob([contenido], { type: 'text/plain' });
+        const url = URL.createObjectURL(archivo);
+        a.href = url;
+        a.download = nombre;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+    const $botonDescargar = document.querySelector("#descargar");
+    $botonDescargar.onclick = () => {
+        guardarArchivoDeTexto("Este es el contenido del archivo", "archivoPlano.txt");
+    }
+
+</script>
+
+</html>

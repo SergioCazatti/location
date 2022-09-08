@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <script src="./js/localizacion.js"></script> -->
+  <title>Document</title>
+</head>
+<body>
+  <p id="demo">Pulsa para ver tu localizaci&oacute;n</p>
+  <button id="start">Pulsa aqu&iacute;</button>
+  <button id="stop">Terminar</button>
+  <button id="descargar">Descargar TXT</button>
+  <div id="posicion">
+    </p>
+    <div id="mapholder"></div>
+    <div id="info"></div>
+
+  <script type="text/javascript"> 
+
+let identificadorIntervaloDeTiempo;
+var x = document.getElementById("demo");
+var y = document.getElementById("info");
+
+
+class posicion{
+  constructor(lat, long, alt, vel, tiempo){
+    this.lat=lat;
+    this.long=long;
+    this.alt=alt;
+    this.vel=vel;
+    this.tiempo=tiempo;
+  }
+}
+
+const listaPosiciones = [];
+
+function getLocation() {
+  identificadorIntervaloDeTiempo = setInterval(localizacion, 5000);
+}
+
+
+function localizacion() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition, showError);
+    x.innerHTML = "Tu navegador adimte la geolocalizaci&oacute;n";
+  }
+  else { x.innerHTML = "Tu navegador no soporta la geolocalizaci&oacute;n."; 
+  }
+}
+
+
+function showPosition(position) {
+  lat = position.coords.latitude;
+  lon = position.coords.longitude;
+  var latlon = lat + "," + lon;
+  y.innerHTML = "Latitud: " + lat;
+  y.innerHTML += "<br/>Longitud: " + lon;
+  y.innerHTML += "<br/>Precisi&oacute;n: " + position.coords.accuracy;
+  y.innerHTML += "<br/>Altidud: " + position.coords.altitude;
+  y.innerHTML += "<br>Precisi&oacute;n de Altidud: " + position.coords.altitudeAccuracy;
+  y.innerHTML += "<br>Heading: " + position.coords.heading;
+  y.innerHTML += "<br>Velocidad: " + position.coords.speed;
+  y.innerHTML += "<br>Fecha (en tiempo Unix): " + position.timestamp;
+
+  //listaPosiciones.push(JSON.stringify(new posicion(position.coords.latitude, position.coords.longitude, position.coords.altitude, position.coords.speed, position.timestamp)));
+
+  let altitud;
+  if (position.coords.altitude){
+    altitud = posicion.coords.altitude;
+  }
+  else{
+    altitud = 0;
+  }
+
+  listaPosiciones.push(position.coords.longitude +","+ position.coords.latitude +","+ altitud +" ");
+}
+
+
+function showError(error) {
+  switch (error.code) {
+    case error.PERMISSION_DENIED:
+      x.innerHTML = "El usuario ha denegado el permiso a la localizaci&oacute;n."
+      break;
+    case error.POSITION_UNAVAILABLE:
+      x.innerHTML = "La informaci&oacute;n de la localizaci&oacute;n no est&aacute; disponible."
+      break;
+    case error.TIMEOUT:
+      x.innerHTML = "El tiempo de espera para buscar la localizaci&oacute;n ha expirado."
+      break;
+    case error.UNKNOWN_ERROR:
+      x.innerHTML = "Ha ocurrido un error desconocido."
+      break;
+  }
+}
+
+function stopLocation() {
+  clearInterval(identificadorIntervaloDeTiempo);
+  identificadorIntervaloDeTiempo = null;
+  
+  console.log(listaPosiciones);
+
+}
+
+
+const guardarArchivoDeTexto = (contenido, nombre) => {
+        const a = document.createElement("a");
+        const archivo = new Blob([contenido], { type: 'text/plain' });
+        const url = URL.createObjectURL(archivo);
+        a.href = url;
+        a.download = nombre;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+
+
+document.getElementById("start").addEventListener("click", getLocation);
+document.getElementById("stop").addEventListener("click", stopLocation);
+
+
+    const $botonDescargar = document.querySelector("#descargar");
+    $botonDescargar.onclick = () => {
+        let encabezadoKml = '<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">\n<Document>\n	<name>5k Ultra Odissea 2022.kml</name>\n	<Style id="inline">\n		<LineStyle>\n			<color>ff00ff55</color>\n			<width>2</width>\n		</LineStyle>\n		<PolyStyle>\n			<fill>0</fill>\n		</PolyStyle>\n	</Style>\n	<Style id="inline0">\n		<LineStyle>\n			<color>ff00ff55</color>\n			<width>2</width>\n		</LineStyle>\n		<PolyStyle>\n			<fill>0</fill>\n		</PolyStyle>\n	</Style>\n	<StyleMap id="inline1">\n		<Pair>\n			<key>normal</key>\n			<styleUrl>#inline0</styleUrl>\n		</Pair>\n		<Pair>\n			<key>highlight</key>\n			<styleUrl>#inline</styleUrl>\n		</Pair>\n	</StyleMap>\n	<Placemark>\n		<name>5k Ultra Odissea 2022</name>\n		<styleUrl>#inline1</styleUrl>\n		<LineString>\n			<tessellate>1</tessellate>\n			<coordinates>\n';
+        let pieKml = '</coordinates>\n</LineString>\n	</Placemark>\n</Document>\n</kml>';
+        let contenido = encabezadoKml + "\n ";
+        for (let i=0; i<listaPosiciones.length; i++) {
+          contenido = contenido + listaPosiciones[i] + " ";
+        }
+        contenido = contenido + "\n " + pieKml;
+        guardarArchivoDeTexto(contenido, "archivoPlano.txt");
+    }
+  </script> 
+
+</body>
+
+</html>
+
+
+
+
