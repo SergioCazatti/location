@@ -8,7 +8,7 @@
   <title>Document</title>
 </head>
 <body>
-  <p id="demo">Pulsa para ver tu localizaci&oacute;n (v1.1)</p>
+  <p id="demo">Pulsa para ver tu localizaci&oacute;n (v1.2)</p>
   <button id="start">Pulsa aqu&iacute;</button>
   <button id="stop">Terminar</button>
   <button id="descargar">Descargar TXT</button>
@@ -74,7 +74,7 @@ function showPosition(position) {
     altitud = 0;
   }
 
-  listaPosiciones.push(position.coords.longitude +","+ position.coords.latitude +","+ altitud +" ");
+  listaPosiciones.push((position.coords.longitude *-1) +","+ (position.coords.latitude *-1) +","+ altitud +" ");
 }
 
 
