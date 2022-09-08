@@ -8,7 +8,7 @@
   <title>Document</title>
 </head>
 <body>
-  <p id="demo">Pulsa para ver tu localizaci&oacute;n (v1.0)</p>
+  <p id="demo">Pulsa para ver tu localizaci&oacute;n (v1.1)</p>
   <button id="start">Pulsa aqu&iacute;</button>
   <button id="stop">Terminar</button>
   <button id="descargar">Descargar TXT</button>
@@ -105,20 +105,13 @@ function stopLocation() {
 
 
 const guardarArchivoDeTexto = (contenido, nombre) => {
-        console.log("Guerdar archivo de texto");
-        console.log(contenido);
-
-
         const a = document.createElement("a");
         const archivo = new Blob([contenido], { type: 'text/plain' });
-
-        console.log(archivo);
-
         const url = URL.createObjectURL(archivo);
         a.href = url;
         a.download = nombre;
         a.click();
-        URL.revokeObjectURL(url);
+        URL.revokeObjectURL(url); 
     } 
 
 
