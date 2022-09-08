@@ -133,7 +133,8 @@ document.getElementById("stop").addEventListener("click", stopLocation);
         const hoy = Date.now();
         let nombreArchivo = hoy.toString() + ".klm";
 
-        guardarArchivoDeTexto(encabezadoKml +"\n"+ contenido +"\n" + pieKml, nombreArchivo);
+        //guardarArchivoDeTexto(encabezadoKml +"\n"+ contenido +"\n" + pieKml, nombreArchivo);
+        guardarArchivoDeTexto(contenido, nombreArchivo);
     }
   </script> 
 
