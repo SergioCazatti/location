@@ -126,9 +126,11 @@ document.getElementById("stop").addEventListener("click", stopLocation);
         let pieKml = '</coordinates>\n</LineString>\n	</Placemark>\n</Document>\n</kml>';
         let contenido = encabezadoKml + "\n ";
         for (let i=0; i<listaPosiciones.length; i++) {
-          contenido = contenido + listaPosiciones[i] + " ";
+          //contenido = contenido + listaPosiciones[i] + " ";
+          contenido = contenido + "Hola ";
         }
         contenido = contenido + "\n " + pieKml;
+        console.log(contenido);
         guardarArchivoDeTexto(contenido, "archivoPlano.txt");
     }
   </script> 
