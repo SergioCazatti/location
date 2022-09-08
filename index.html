@@ -8,7 +8,7 @@
   <title>Document</title>
 </head>
 <body>
-  <p id="demo">Pulsa para ver tu localizaci&oacute;n (v1.2)</p>
+  <p id="demo">Pulsa para ver tu localizaci&oacute;n (v1.3)</p>
   <button id="start">Pulsa aqu&iacute;</button>
   <button id="stop">Terminar</button>
   <button id="descargar">Descargar TXT</button>
@@ -74,7 +74,7 @@ function showPosition(position) {
     altitud = 0;
   }
 
-  listaPosiciones.push((position.coords.longitude *-1) +","+ (position.coords.latitude *-1) +","+ altitud +" ");
+  listaPosiciones.push(position.coords.longitude +","+ position.coords.latitude +","+ altitud +" ");
 }
 
 
@@ -123,7 +123,9 @@ document.getElementById("stop").addEventListener("click", stopLocation);
     const $botonDescargar = document.querySelector("#descargar");
     $botonDescargar.onclick = () => {
       // let encabezadoKml = '<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">\n<Document>\n	<name>5k Ultra Odissea 2022.kml</name>\n	<Style id="inline">\n		<LineStyle>\n			<color>ff00ff55</color>\n			<width>2</width>\n		</LineStyle>\n		<PolyStyle>\n			<fill>0</fill>\n		</PolyStyle>\n	</Style>\n	<Style id="inline0">\n		<LineStyle>\n			<color>ff00ff55</color>\n			<width>2</width>\n		</LineStyle>\n		<PolyStyle>\n			<fill>0</fill>\n		</PolyStyle>\n	</Style>\n	<StyleMap id="inline1">\n		<Pair>\n			<key>normal</key>\n			<styleUrl>#inline0</styleUrl>\n		</Pair>\n		<Pair>\n			<key>highlight</key>\n			<styleUrl>#inline</styleUrl>\n		</Pair>\n	</StyleMap>\n	<Placemark>\n		<name>5k Ultra Odissea 2022</name>\n		<styleUrl>#inline1</styleUrl>\n		<LineString>\n			<tessellate>1</tessellate>\n			<coordinates>\n';  
-      let encabezadoKml = '<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">\n<Document>\n	<name>5k Ultra Odissea 2022.kml</name>\n	<Style id="inline">\n		<LineStyle>\n			<color>ff00ff55</color>\n			<width>2</width>\n		</LineStyle>\n		<PolyStyle>\n			<fill>0</fill>\n		</PolyStyle>\n	</Style>\n	<Style id="inline0">\n		<LineStyle>\n			<color>ff00ff55</color>\n			<width>2</width>\n		</LineStyle>\n		<PolyStyle>\n			<fill>0</fill>\n		</PolyStyle>\n	</Style>\n	<StyleMap id="inline1">\n		<Pair>\n			<key>normal</key>\n			<styleUrl>#inline0</styleUrl>\n		</Pair>\n		<Pair>\n			<key>highlight</key>\n			<styleUrl>#inline</styleUrl>\n		</Pair>\n	</StyleMap>\n	<Placemark>\n		<name>5k Ultra Odissea 2022</name>\n		<styleUrl>#inline1</styleUrl>\n		<LineString>\n			<tessellate>1</tessellate>\n			<coordinates>\n<' + listaPosiciones.join("") + '></coordinates>\n</LineString>\n	</Placemark>\n</Document>\n</kml>';
+      let coordenadas = listaPosiciones.join(" ");
+      console.log(coordenadas);
+      let encabezadoKml = '<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">\n<Document>\n	<name>5k Ultra Odissea 2022.kml</name>\n	<Style id="inline">\n		<LineStyle>\n			<color>ff00ff55</color>\n			<width>2</width>\n		</LineStyle>\n		<PolyStyle>\n			<fill>0</fill>\n		</PolyStyle>\n	</Style>\n	<Style id="inline0">\n		<LineStyle>\n			<color>ff00ff55</color>\n			<width>2</width>\n		</LineStyle>\n		<PolyStyle>\n			<fill>0</fill>\n		</PolyStyle>\n	</Style>\n	<StyleMap id="inline1">\n		<Pair>\n			<key>normal</key>\n			<styleUrl>#inline0</styleUrl>\n		</Pair>\n		<Pair>\n			<key>highlight</key>\n			<styleUrl>#inline</styleUrl>\n		</Pair>\n	</StyleMap>\n	<Placemark>\n		<name>5k Ultra Odissea 2022</name>\n		<styleUrl>#inline1</styleUrl>\n		<LineString>\n			<tessellate>1</tessellate>\n			<coordinates>\n' + coordenadas + '</coordinates>\n</LineString>\n	</Placemark>\n</Document>\n</kml>';
 //        let pieKml = '</coordinates>\n</LineString>\n	</Placemark>\n</Document>\n</kml>';
         let contenido = "";
 
