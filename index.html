@@ -128,8 +128,12 @@ document.getElementById("stop").addEventListener("click", stopLocation);
         for (let i=0; i<listaPosiciones.length; i++) {
           contenido = contenido + listaPosiciones[i].toString() + " ";
         } 
+        
+        //const hoy = new Date(Date.now());
+        const hoy = Date.now();
+        let nombreArchivo = hoy.toString() + ".klm";
 
-        guardarArchivoDeTexto(encabezadoKml +"\n"+ contenido +"\n" + pieKml, "archivoPlano.txt");
+        guardarArchivoDeTexto(encabezadoKml +"\n"+ contenido +"\n" + pieKml, nombreArchivo);
     }
   </script> 
 
