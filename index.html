@@ -8,7 +8,7 @@
   <title>Document</title>
 </head>
 <body>
-  <p id="demo">Pulsa para ver tu localizaci&oacute;n (v1.4)</p>
+  <p id="demo">Pulsa para ver tu localizaci&oacute;n (v1.5)</p>
   <button id="start">Pulsa aqu&iacute;</button>
   <button id="stop">Terminar</button>
   <button id="descargar">Descargar TXT</button>
@@ -74,7 +74,8 @@ function showPosition(position) {
     altitud = 0;
   }
 
-  listaPosiciones.push(parseFloat(position.coords.longitude) +","+ parseFloat(position.coords.latitude) +","+ altitud +" ");
+  //listaPosiciones.push(parseFloat(position.coords.longitude) +","+ parseFloat(position.coords.latitude) +","+ altitud +" ");
+  listaPosiciones.push("-60.2121" +","+ "-31.2525" +","+ "80.2000" +" ");
 }
 
 
