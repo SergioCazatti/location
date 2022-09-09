@@ -5,17 +5,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Localizacion v.1.0</title>
+    <title>Localización</title>
 </head>
 
 <body>
+    <p><h2>Localizar dispositivo v.1.2</h2></p>
     <button id="descargar">Descargar TXT v.2</button>
     <button id="localizar">Localizar</button>
     <button id="detener">Detener</button>
+    <div id="info"></div>
 </body>
+
+
+
 <script>
     let contenidoArchivo = "";
     let identificador;
+    let altitud = 0;
+    let y = document.getElementById("info");
 
     const $botonLocalizar = document.querySelector("#localizar");
     $botonLocalizar.onclick = () => {
@@ -43,14 +50,44 @@
     }
 
     function showPosition(posicion){
-        console.log(posicion.coords.longitude.toString() +", "+ posicion.coords.latitude.toString() + " ");
-        contenidoArchivo = contenidoArchivo.toString() + posicion.coords.longitude.toString() +", "+ posicion.coords.latitude.toString() + " ";
+        if (posicion.coords.altitude) {
+            altitud = posicion.coords.altitude;
+        }
+        else{
+            altitud = 0;
+        }
 
+        console.log(posicion.coords.longitude.toString() +", "+ posicion.coords.latitude.toString() + ", " + altitud);
+
+        contenidoArchivo = contenidoArchivo.toString() + posicion.coords.longitude.toString() +", "+ posicion.coords.latitude.toString() + ", " + altitud.toString() + " \n";
+
+        y.innerHTML = "Latitud: " + posicion.coords.latitude;
+        y.innerHTML += "<br/>Longitud: " + posicion.coords.longitude;
+        y.innerHTML += "<br/>Precisi&oacute;n: " + posicion.coords.accuracy;
+        y.innerHTML += "<br/>Altidud: " + posicion.coords.altitude;
+        y.innerHTML += "<br>Precisi&oacute;n de Altidud: " + posicion.coords.altitudeAccuracy;
+        y.innerHTML += "<br>Heading: " + posicion.coords.heading;
+        y.innerHTML += "<br>Velocidad: " + posicion.coords.speed;
+        y.innerHTML += "<br>Fecha (en tiempo Unix): " + posicion.timestamp;
+        
     }
 
     function showError(error){
-        console.log(error);
-    }
+/*         switch (error.code) {
+            case error.PERMISSION_DENIED:
+                x.innerHTML = "El usuario ha denegado el permiso a la localizaci&oacute;n."
+                break;
+            case error.POSITION_UNAVAILABLE:
+                x.innerHTML = "La informaci&oacute;n de la localizaci&oacute;n no est&aacute; disponible."
+                break;
+            case error.TIMEOUT:
+                x.innerHTML = "El tiempo de espera para buscar la localizaci&oacute;n ha expirado."
+                break;
+            case error.UNKNOWN_ERROR:
+                x.innerHTML = "Ha ocurrido un error desconocido."
+                break;
+        }
+ */    }
 
 
     const guardarArchivoDeTexto = (contenido, nombre) => {
