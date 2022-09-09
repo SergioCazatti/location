@@ -9,9 +9,9 @@
 </head>
 
 <body>
-    <p><h2>Localizar dispositivo v.1.2</h2></p>
-    <button id="descargar">Descargar TXT v.2</button>
-    <button id="localizar">Localizar</button>
+    <p><h2>Localizar dispositivo v.1.5</h2></p>
+    <button id="descargar">Descargar</button>
+    <button id="localizar">Iniciar</button>
     <button id="detener">Detener</button>
     <div id="info"></div>
 </body>
@@ -19,9 +19,25 @@
 
 
 <script>
+    class trkpt {
+        constructor(
+            latitud,
+            longitud,
+            elevacion,
+            tiempo,
+        ){
+            this.latitud = latitud;
+            this.longitud = longitud;
+            this.elevacion = elevacion;
+            this.tiempo = tiempo;
+        }
+    };
+
+    const posiciones = [];
     let contenidoArchivo = "";
     let identificador;
     let altitud = 0;
+    
     let y = document.getElementById("info");
 
     const $botonLocalizar = document.querySelector("#localizar");
@@ -35,14 +51,6 @@
         else { //x.innerHTML = "Tu navegador no soporta la geolocalizaci&oacute;n."; 
             alert("Tu navegador no soporta la geolocalizaci&oacute;n."); 
         } 
-    }
-
-    const $botonDetener = document.querySelector("#detener");
-    $botonDetener.onclick = () => {
-        console.log(identificador);
-        clearInterval(identificador);
-        identificador = null;
-        console.log(identificador);
     }
 
     function localizar(){
@@ -59,7 +67,10 @@
 
         console.log(posicion.coords.longitude.toString() +", "+ posicion.coords.latitude.toString() + ", " + altitud);
 
-        contenidoArchivo = contenidoArchivo.toString() + posicion.coords.longitude.toString() +", "+ posicion.coords.latitude.toString() + ", " + altitud.toString() + " \n";
+        //contenidoArchivo = contenidoArchivo.toString() + posicion.coords.longitude.toString() +", "+ posicion.coords.latitude.toString() + ", " + altitud.toString() + " \n";
+
+        posiciones.push(new trkpt(posicion.coords.latitude, posicion.coords.longitude, altitud, posicion.timestamp));
+
 
         y.innerHTML = "Latitud: " + posicion.coords.latitude;
         y.innerHTML += "<br/>Longitud: " + posicion.coords.longitude;
@@ -90,6 +101,15 @@
  */    }
 
 
+    const $botonDetener = document.querySelector("#detener");
+    $botonDetener.onclick = () => {
+        console.log(identificador);
+        clearInterval(identificador);
+        identificador = null;
+        console.log(identificador);
+    }
+
+
     const guardarArchivoDeTexto = (contenido, nombre) => {
         const a = document.createElement("a");
         const archivo = new Blob([contenido], { type: 'text/plain' });
@@ -108,6 +128,17 @@
         let variable2 = lista[1];
         console.log(variable1.toString() + ", " + variable2.toString());
  */        //guardarArchivoDeTexto(variable1.toString() + " " +variable2.toString(), "archivoPlano.txt");
+
+        //contenidoArchivo = posiciones.join("\n");
+
+        console.log("lat: " + posiciones[1].latitud);
+        console.log("lon: " + posiciones[1].longitud);
+        console.log("elevacion: " + posiciones[1].elevacion);
+        console.log("tiempo: " + posiciones[1].tiempo);
+        posiciones.forEach( (point) =>{
+            contenidoArchivo = contenidoArchivo.toString() + "<trkpt lat=" + point.latitud +" lon=" + point.longitud + "><ele>" + point.elevacion + "</ele><time>"+ point.tiempo +"</time></trkpt>\n";
+        })
+        
         guardarArchivoDeTexto(contenidoArchivo, "archivoPlano2.txt");
     }
 
