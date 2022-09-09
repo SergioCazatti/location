@@ -5,13 +5,54 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Descargar txt con JS</title>
+    <title>Localizacion v.1.0</title>
 </head>
 
 <body>
     <button id="descargar">Descargar TXT v.2</button>
+    <button id="localizar">Localizar</button>
+    <button id="detener">Detener</button>
 </body>
 <script>
+    let contenidoArchivo = "";
+    let identificador;
+
+    const $botonLocalizar = document.querySelector("#localizar");
+    $botonLocalizar.onclick = () => {
+        if (navigator.geolocation) {
+            alert("Tu navegador adimte la geolocalizaci&oacute;n");            
+            identificador = setInterval(localizar,1000);
+            //x.innerHTML = "Tu navegador adimte la geolocalizaci&oacute;n";
+
+        }
+        else { //x.innerHTML = "Tu navegador no soporta la geolocalizaci&oacute;n."; 
+            alert("Tu navegador no soporta la geolocalizaci&oacute;n."); 
+        } 
+    }
+
+    const $botonDetener = document.querySelector("#detener");
+    $botonDetener.onclick = () => {
+        console.log(identificador);
+        clearInterval(identificador);
+        identificador = null;
+        console.log(identificador);
+    }
+
+    function localizar(){
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    }
+
+    function showPosition(posicion){
+        console.log(posicion.coords.longitude.toString() +", "+ posicion.coords.latitude.toString() + " ");
+        contenidoArchivo = contenidoArchivo.toString() + posicion.coords.longitude.toString() +", "+ posicion.coords.latitude.toString() + " ";
+
+    }
+
+    function showError(error){
+        console.log(error);
+    }
+
+
     const guardarArchivoDeTexto = (contenido, nombre) => {
         const a = document.createElement("a");
         const archivo = new Blob([contenido], { type: 'text/plain' });
@@ -23,14 +64,18 @@
     }
     const $botonDescargar = document.querySelector("#descargar");
     $botonDescargar.onclick = () => {
-        const lista = [];
+/*         const lista = [];
         lista[0] = -60;
         lista[1] = -30;
         let variable1 = lista[0];
         let variable2 = lista[1];
         console.log(variable1.toString() + ", " + variable2.toString());
-        guardarArchivoDeTexto(variable1.toString() + " " +variable2.toString(), "archivoPlano.txt");
+ */        //guardarArchivoDeTexto(variable1.toString() + " " +variable2.toString(), "archivoPlano.txt");
+        guardarArchivoDeTexto(contenidoArchivo, "archivoPlano2.txt");
     }
+
+
+
 
 </script>
 
