@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <button id="descargar">Descargar TXT v.1</button>
+    <button id="descargar">Descargar TXT v.2</button>
 </body>
 <script>
     const guardarArchivoDeTexto = (contenido, nombre) => {
@@ -28,8 +28,8 @@
         lista[1] = -30;
         let variable1 = lista[0];
         let variable2 = lista[1];
-        console.log(variable1 + " " + variable2)
-        guardarArchivoDeTexto(variable1 + variable2, "archivoPlano.txt");
+        console.log(variable1.toString() + ", " + variable2.toString());
+        guardarArchivoDeTexto(variable1.toString() + " " +variable2.toString(), "archivoPlano.txt");
     }
 
 </script>
