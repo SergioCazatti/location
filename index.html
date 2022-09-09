@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <p><h2>Localizar dispositivo v.1.5</h2></p>
+    <p><h2>Localizar dispositivo v.1.6</h2></p>
     <button id="descargar">Descargar</button>
     <button id="localizar">Iniciar</button>
     <button id="detener">Detener</button>
@@ -135,10 +135,18 @@
         console.log("lon: " + posiciones[1].longitud);
         console.log("elevacion: " + posiciones[1].elevacion);
         console.log("tiempo: " + posiciones[1].tiempo);
+
+        const fecha = new Date();
+        const hoy = fecha.toISOString();
+        
+        contenidoArchivo = '<?xml version="1.0" encoding="UTF-8"?><gpx creator="sfc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" xmlns="http://www.topografix.com/GPX/1/1"> <metadata>  <time>' + hoy + '</time> </metadata> <trk>  <name>Nombre</name>  <type>4</type>  <trkseg>\n'
+
         posiciones.forEach( (point) =>{
-            contenidoArchivo = contenidoArchivo.toString() + "<trkpt lat=" + point.latitud +" lon=" + point.longitud + "><ele>" + point.elevacion + "</ele><time>"+ point.tiempo +"</time></trkpt>\n";
+          contenidoArchivo = contenidoArchivo.toString() + '<trkpt lat="' + point.latitud +'" lon="' + point.longitud + '"><ele>' + point.elevacion + '</ele><time>'+ point.tiempo +'</time></trkpt>\n';
         })
         
+        contenidoArchivo = contenidoArchivo + "\n</trkseg> </trk></gpx>"
+
         guardarArchivoDeTexto(contenidoArchivo, "archivoPlano2.txt");
     }
 
