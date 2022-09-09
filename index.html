@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <p><h2>Localizar dispositivo v.1.8</h2></p>
+    <p><h2>Localizar dispositivo v.1.9</h2></p>
     <button id="descargar">Descargar</button>
     <button id="localizar">Iniciar</button>
     <button id="detener">Detener</button>
@@ -135,7 +135,7 @@
           //contenidoArchivo = contenidoArchivo.toString() + '<trkpt lat="' + point.latitud +'" lon="' + point.longitud + '"><ele>' + point.elevacion + '</ele><time>'+ point.tiempo +'</time></trkpt>\n';
 
           // Formato kml
-          contenidoArchivo = contenidoArchivo.toString() + point.longitud +", "+ point.latitud +","+ point.elevacion +"\n";
+          contenidoArchivo = contenidoArchivo.toString() + point.longitud +", "+ point.latitud +","+ point.elevacion +" ";
         })
         
         // Formato gpx
